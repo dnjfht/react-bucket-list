@@ -36,10 +36,22 @@ const MyStyled = styled.div`
   border: 1px solid #dfdfdf;
   margin: 0 auto;
   // background-color: #fff;
-  background-color: ${(props) => props.bg_color};
+  // background-color: ${(props) => props.bg_color};
   // 삼항연산자는 쓸 수 있지만 if문, for문은 쓸 수 없음
 
+  background-color: ${(props) => (props.bg_color ? "white" : "pink")};
+
   text-align: center;
+
+  // SCSS 문법
+  // 중괄호 안에다가 다 써주는 기법을 nesting이라고 함
+  // nesting을 styled-components 안에서도 해줄 수 있음
+  p {
+    color: blue;
+  }
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const Title = styled.h1`
@@ -70,7 +82,8 @@ class App extends React.Component {
     // 갖다 붙힐 요소들을 render 아래에 추가
     return (
       <Wrap>
-        <MyStyled bg_color={"white"}>
+        <MyStyled bg_color={true}>
+          <p>I'm here!!!</p>
           <Title>내 버킷리스트</Title>
           {/* 컴포넌트를 넣어줍니다. */}
           {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
