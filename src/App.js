@@ -23,8 +23,8 @@ const Wrap = styled.div`
   background-color: #ececec;
 
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const MyStyled = styled.div`
@@ -62,6 +62,44 @@ const Title = styled.h1`
   color: rgb(81, 93, 196);
 `;
 
+const InputWrap = styled.div`
+  width: 360px;
+  max-width: 360px;
+  height: 200px;
+  padding: 2rem;
+  box-sizing: border-box;
+  border: 1px solid #dfdfdf;
+  margin: 20px auto;
+  background-color: white;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BucketInput = styled.input`
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #577bc5;
+  border-radius: 10px;
+
+  color: #52515d;
+
+  outline: none;
+`;
+
+const AddButton = styled.button`
+  padding: 10px;
+  margin-left: 4px;
+  background-color: #4d55c2;
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  font-weight: 300;
+`;
+
 // 클래스형 컴포넌트는 이렇게 생겼습니다!
 class App extends React.Component {
   // super를 사용해 부모 class에 있는 것들을 받아옴
@@ -84,6 +122,17 @@ class App extends React.Component {
     // <input type="text">
   }
 
+  addBucket = (event) => {
+    event.preventDefault();
+    console.log(this.text.current.value);
+
+    let new_item = this.text.current.value;
+
+    this.setState({ list: [...this.state.list, new_item] });
+
+    this.text.current.value = "";
+  };
+
   // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
   render() {
     console.log(this.text.current);
@@ -102,15 +151,16 @@ class App extends React.Component {
           <BucketList list={this.state.list} />
         </MyStyled>
 
-        <div>
-          <input
+        <InputWrap>
+          <BucketInput
             type="text"
             ref={this.text}
             onChange={() => {
               console.log(this.text.current.value);
             }}
           />
-        </div>
+          <AddButton onClick={this.addBucket}>추가하기</AddButton>
+        </InputWrap>
       </Wrap>
     );
   }
