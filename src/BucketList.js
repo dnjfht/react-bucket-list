@@ -26,10 +26,22 @@ const List = styled.div`
 const BucketList = (props) => {
   // Quiz 1: my_list에 ['a', 'b', 'c'] 대신 부모 컴포넌트가 넘겨준 값을 넣으려면 어떻게 해야할까요?
   const my_lists = props.list;
+  const my_wrap = React.useRef(null);
+
+  console.log(my_wrap);
+  // {current: null} => 초기값인 null이 뜨는 것.
+  // 그런데 우리는 div를 넣어줬는데 왜 초기값이 뜨는가?
+  // 위에서 my_wrap을 작성하고 바로 아래에서 my_wrap을 호출했기 때문.
+  // 호출된 다음에 return이 실행되기 때문에 그제서야 div가 생김.
+
+  window.setTimeout(() => {
+    console.log(my_wrap);
+  }, 1000);
+  // 이렇게 하면 처음에는 null이 떴다가 그 뒤로는 1초마다 {current: div}를 호출함.
 
   // 컴포넌트가 뿌려줄 ui 요소(리엑트 엘리먼트라고 불러요.)를 반환해줍니다.
   return (
-    <div>
+    <div ref={my_wrap}>
       {
         // js의 내장 함수 중 하나인 map입니다. 리스트의 갯수만큼 => 오른쪽 구문을 반복해요.
         // 자세한 사용법은 아래 링크를 확인해주세요.
