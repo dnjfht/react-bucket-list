@@ -33,6 +33,7 @@ const MyStyled = styled.div`
   height: 600px;
   padding: 2rem;
   box-sizing: border-box;
+  overflow: scroll;
   border: 1px solid #dfdfdf;
   margin: 0 auto;
   // background-color: #fff;
@@ -52,6 +53,17 @@ const MyStyled = styled.div`
   /* &:hover {
     background-color: #f4f4f4;
   } */
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 
 const Title = styled.h1`
@@ -112,7 +124,9 @@ class App extends React.Component {
     };
 
     this.text = React.createRef();
-    // ref => 이름표 같은 것
+    // ref => 상태 끌어올리기
+    // Ref는 render 메서드에서 생성된 DOM 노드나 React 엘리먼트에 접근하는 방법을 제공
+    // 컴포넌트의 인스턴스의 어느 곳에서나 Ref에 접근할 수 있도록 함.
   }
 
   componentDidMount() {
