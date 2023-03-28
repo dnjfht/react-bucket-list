@@ -47,6 +47,7 @@ const MyStyled = styled.div`
   // SCSS 문법
   // 중괄호 안에다가 다 써주는 기법을 nesting이라고 함
   // nesting을 styled-components 안에서도 해줄 수 있음
+
   p {
     color: blue;
   }
