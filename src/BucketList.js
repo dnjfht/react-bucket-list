@@ -52,7 +52,12 @@ const BucketList = (props) => {
           console.log(list);
           return (
             <List key={index}>
-              <Link to="/detail/:id">{list}</Link>
+              <Link
+                to="/detail"
+                style={{ textDecoration: "none", color: "rgba(0,0,0,0.8)" }}
+              >
+                {list}
+              </Link>
             </List>
           );
         })
