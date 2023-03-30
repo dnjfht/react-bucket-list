@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const DetailWrap = styled.div`
+const NotFoundWrap = styled.div`
   width: 100%;
   height: 360px;
 
@@ -12,7 +12,7 @@ const DetailWrap = styled.div`
   justify-content: space-between;
 `;
 
-const SubTitle = styled.h2`
+const NotRight = styled.h1`
   color: rgba(0, 0, 0, 0.8);
   font-size: 1.4rem;
 `;
@@ -35,12 +35,12 @@ const GoHome = styled.button`
   }
 `;
 
-export default function Detail() {
+export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <DetailWrap>
-      <SubTitle>상세페이지 입니다!</SubTitle>
+    <NotFoundWrap>
+      <NotRight>404 Error</NotRight>
 
       <GoHome
         onClick={() => {
@@ -49,6 +49,6 @@ export default function Detail() {
       >
         {`<<`} Home
       </GoHome>
-    </DetailWrap>
+    </NotFoundWrap>
   );
 }
