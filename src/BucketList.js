@@ -2,6 +2,7 @@
 // 리액트 패키지를 불러옵니다.
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const List = styled.div`
   padding: 0.8rem 1rem;
@@ -49,7 +50,11 @@ const BucketList = (props) => {
         my_lists.map((list, index) => {
           // 콘솔을 확인해봅시다 :)
           console.log(list);
-          return <List key={index}>{list}</List>;
+          return (
+            <List key={index}>
+              <Link to="/detail/:id">{list}</Link>
+            </List>
+          );
         })
       }
     </div>
