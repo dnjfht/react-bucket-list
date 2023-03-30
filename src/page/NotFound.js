@@ -17,7 +17,7 @@ const NotRight = styled.h1`
   font-size: 1.4rem;
 `;
 
-const GoHome = styled.button`
+const GoBack = styled.button`
   padding: 10px 20px;
   background-color: transparent;
   border: 1px solid rgb(81, 93, 196);
@@ -42,13 +42,13 @@ export default function NotFound() {
     <NotFoundWrap>
       <NotRight>404 Error</NotRight>
 
-      <GoHome
+      <GoBack
         onClick={() => {
-          navigate("/");
+          navigate(-1);
         }}
       >
-        {`<<`} Home
-      </GoHome>
+        {`<< Go Back`}
+      </GoBack>
     </NotFoundWrap>
   );
 }
