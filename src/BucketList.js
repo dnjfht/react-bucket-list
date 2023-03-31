@@ -2,7 +2,7 @@
 // 리액트 패키지를 불러옵니다.
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const List = styled.div`
@@ -12,6 +12,11 @@ const List = styled.div`
   background-color: #e0ebff;
 
   text-align: left;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 // 함수형 컴포넌트는 이렇게 쓸 수도 있고
@@ -36,13 +41,15 @@ const BucketList = () => {
   // 위에서 my_wrap을 작성하고 바로 아래에서 my_wrap을 호출했기 때문.
   // 호출된 다음에 return이 실행되기 때문에 그제서야 div가 생김.
 
-  window.setTimeout(() => {
-    console.log(my_wrap);
-  }, 1000);
+  // window.setTimeout(() => {
+  //   console.log(my_wrap);
+  // }, 1000);
   // 이렇게 하면 처음에는 null이 떴다가 그 뒤로는 1초마다 {current: div}를 호출함.
 
   const my_lists = useSelector((state) => state.widgets.list);
   console.log(my_lists);
+
+  const navigate = useNavigate();
 
   // 컴포넌트가 뿌려줄 ui 요소(리엑트 엘리먼트라고 불러요.)를 반환해줍니다.
   return (
@@ -56,12 +63,14 @@ const BucketList = () => {
           console.log(list);
           return (
             <List key={index}>
-              <Link
-                to="/detail"
+              <p
+                onClick={() => {
+                  navigate("/detail/" + index);
+                }}
                 style={{ textDecoration: "none", color: "rgba(0,0,0,0.8)" }}
               >
                 {list}
-              </Link>
+              </p>
             </List>
           );
         })

@@ -43,9 +43,16 @@ const widgets = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
       return state;
-    case CREATE:
+    case CREATE: {
       const new_bucket_list = [...state.list, action.payload];
       return { list: new_bucket_list };
+    }
+    case REMOVE: {
+      const new_bucket_list = state.list.filter((_, idx) => {
+        return action.payload !== idx;
+      });
+      return { list: new_bucket_list };
+    }
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeWidget } from "../redux/modules/widgets";
 
 const DetailWrap = styled.div`
   width: 100%;
@@ -17,7 +19,7 @@ const SubTitle = styled.h2`
   font-size: 1.4rem;
 `;
 
-const GoBack = styled.button`
+const DeleteBucket = styled.button`
   padding: 10px 20px;
   background-color: transparent;
   border: 1px solid rgb(81, 93, 196);
@@ -36,19 +38,26 @@ const GoBack = styled.button`
 `;
 
 export default function Detail() {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  const params = useParams();
+  let bucket_index = parseInt(params.id);
+  console.log(bucket_index);
+  // 페이지에 해당하는 id가 숫자로 들어옴
+
+  const deleteBucket = () => {
+    dispatch(removeWidget(bucket_index));
+
+    navigate(-1);
+  };
 
   return (
     <DetailWrap>
-      <SubTitle>상세페이지 입니다!</SubTitle>
+      <SubTitle>{`${bucket_index}번째 상세페이지`}</SubTitle>
 
-      <GoBack
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        {`<< Go Back`}
-      </GoBack>
+      <DeleteBucket onClick={deleteBucket}>Delete</DeleteBucket>
     </DetailWrap>
   );
 }

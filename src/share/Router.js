@@ -9,7 +9,7 @@ export default function Router() {
     <>
       <Routes>
         <Route path="/" element={<BucketList />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="*" element={<NotFound />} />
         {/* 
         * : URL 변경이 감지되면 첫 번째 Route부터 순차적으로 탐색을 하게 되는데,
