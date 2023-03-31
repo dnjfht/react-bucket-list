@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 // BucketList 컴포넌트를 import 해옵니다.
 // import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
 // import "./style.css";
 import styled from "styled-components";
 import Router from "./share/Router";
+import { useDispatch } from "react-redux";
+import { createWidget } from "./redux/modules/widgets";
 
 const Wrap = styled.div`
   width: 100%;
@@ -102,72 +104,106 @@ const AddButton = styled.button`
   font-weight: 300;
 `;
 
-// 클래스형 컴포넌트는 이렇게 생겼습니다!
-class App extends React.Component {
-  // super를 사용해 부모 class에 있는 것들을 받아옴
-  constructor(props) {
-    super(props);
-    // App 컴포넌트의 state를 정의해줍니다.
-    // App class 컴포넌트에서 가지고 있는 데이터들
-    this.state = {
-      list: ["영화관 가기", "매일 책읽기", "수영 배우기"],
-    };
+// // 클래스형 컴포넌트는 이렇게 생겼습니다!
+// class App extends React.Component {
+//   // super를 사용해 부모 class에 있는 것들을 받아옴
+//   constructor(props) {
+//     super(props);
+//     // App 컴포넌트의 state를 정의해줍니다.
+//     // App class 컴포넌트에서 가지고 있는 데이터들
+//     this.state = {
+//       list: ["영화 this.text.current.value;
 
-    this.text = React.createRef();
-    // ref => 상태 끌어올리기
-    // Ref는 render 메서드에서 생성된 DOM 노드나 React 엘리먼트에 접근하는 방법을 제공
-    // 컴포넌트의 인스턴스의 어느 곳에서나 Ref에 접근할 수 있도록 함.
-  }
+//     this.setState({ list: [...this.state.list, new_item] });
 
-  componentDidMount() {
-    console.log(this.text);
-    // {current: input}
-    console.log(this.text.current);
-    // <input type="text">
-  }
+//     this.text.current.value = "";
+//   };
 
-  addBucket = (event) => {
-    event.preventDefault();
-    console.log(this.text.current.value);
+//   // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
+//   render() {
+//     console.log(this.text.current);
 
-    let new_item = this.text.current.value;
+//     console.log(this.state.list);
+//     // ['영화관 가기', '매일 책읽기', '수영 배우기']
 
-    this.setState({ list: [...this.state.list, new_item] });
+//     // 갖다 붙힐 요소들을 render 아래에 추가
+//     return (
+//       <Wrap>
+//         <MyStyled bg_color={true}>
+//           <p>I can do it !!!</p>
+//           <Title>내 버킷리스트</Title>
+//           {/* 컴포넌트를 넣어줍니다. */}
+//           {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
+//           <Router list={this.state.list} />
+//         </MyStyled>
 
-    this.text.current.value = "";
+//         <InputWrap>관 가기", "매일 책읽기", "수영 배우기"],
+//     };
+
+//     this.text = React.createRef();
+//     // ref => 상태 끌어올리기
+//     // Ref는 render 메서드에서 생성된 DOM 노드나 React 엘리먼트에 접근하는 방법을 제공
+//     // 컴포넌트의 인스턴스의 어느 곳에서나 Ref에 접근할 수 있도록 함.
+//   }
+
+//   componentDidMount() {
+//     console.log(this.text);
+//     // {current: input}
+//     console.log(this.text.current);
+//     // <input type="text">
+//   }
+
+//   addBucket = (event) => {
+//     event.preventDefault();
+//     console.log(this.text.current.value);
+
+//     let new_item =
+//           <BucketInput
+//             type="text"
+//             ref={this.text}
+//             onChange={() => {
+//               console.log(this.text.current.value);
+//             }}
+//           />
+//           <AddButton onClick={this.addBucket}>추가하기</AddButton>
+//         </InputWrap>
+//       </Wrap>
+//     );
+//   }
+// }
+
+// export default App;
+
+export default function App() {
+  const text = useRef();
+
+  const dispatch = useDispatch();
+
+  const addBucket = () => {
+    dispatch(createWidget(text.current.value));
+    text.current.value = "";
   };
 
-  // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
-  render() {
-    console.log(this.text.current);
+  return (
+    <Wrap>
+      <MyStyled bg_color={true}>
+        <p>I can do it !!!</p>
+        <Title>내 버킷리스트</Title>
+        {/* 컴포넌트를 넣어줍니다. */}
+        {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
+        <Router />
+      </MyStyled>
 
-    console.log(this.state.list);
-    // ['영화관 가기', '매일 책읽기', '수영 배우기']
-
-    // 갖다 붙힐 요소들을 render 아래에 추가
-    return (
-      <Wrap>
-        <MyStyled bg_color={true}>
-          <p>I can do it !!!</p>
-          <Title>내 버킷리스트</Title>
-          {/* 컴포넌트를 넣어줍니다. */}
-          {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
-          <Router list={this.state.list} />
-        </MyStyled>
-
-        <InputWrap>
-          <BucketInput
-            type="text"
-            ref={this.text}
-            onChange={() => {
-              console.log(this.text.current.value);
-            }}
-          />
-          <AddButton onClick={this.addBucket}>추가하기</AddButton>
-        </InputWrap>
-      </Wrap>
-    );
-  }
+      <InputWrap>
+        <BucketInput
+          type="text"
+          ref={text}
+          onChange={() => {
+            console.log(text.current.value);
+          }}
+        />
+        <AddButton onClick={addBucket}>추가하기</AddButton>
+      </InputWrap>
+    </Wrap>
+  );
 }
-
-export default App;

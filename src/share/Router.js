@@ -4,11 +4,11 @@ import BucketList from "../BucketList";
 import Detail from "../page/Detail";
 import NotFound from "../page/NotFound";
 
-export default function Router({ list }) {
+export default function Router() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<BucketList list={list} />} />
+        <Route path="/" element={<BucketList />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="*" element={<NotFound />} />
         {/* 

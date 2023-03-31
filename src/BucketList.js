@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const List = styled.div`
   padding: 0.8rem 1rem;
@@ -24,9 +25,9 @@ const List = styled.div`
 // 저희는 앞으로 화살표 함수를 사용할거예요.
 // 앗 () 안에 props! 부모 컴포넌트에게 받아온 데이터입니다.
 // js 함수가 값을 받아오는 것과 똑같이 받아오네요.
-const BucketList = (props) => {
+const BucketList = () => {
   // Quiz 1: my_list에 ['a', 'b', 'c'] 대신 부모 컴포넌트가 넘겨준 값을 넣으려면 어떻게 해야할까요?
-  const my_lists = props.list;
+  // const my_lists = props.list;
   const my_wrap = React.useRef(null);
 
   console.log(my_wrap);
@@ -39,6 +40,9 @@ const BucketList = (props) => {
     console.log(my_wrap);
   }, 1000);
   // 이렇게 하면 처음에는 null이 떴다가 그 뒤로는 1초마다 {current: div}를 호출함.
+
+  const my_lists = useSelector((state) => state.widgets.list);
+  console.log(my_lists);
 
   // 컴포넌트가 뿌려줄 ui 요소(리엑트 엘리먼트라고 불러요.)를 반환해줍니다.
   return (
