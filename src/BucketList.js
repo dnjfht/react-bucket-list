@@ -10,7 +10,7 @@ const List = styled.div`
   box-sizing: border-box;
   margin-bottom: 1rem;
   background-color: ${(props) =>
-    props.completed === true ? "#ff6e6e" : "#e0ebff"};
+    props.completed === true ? "#96b0e6" : "#e0ebff"};
   text-align: left;
 
   display: flex;
@@ -70,7 +70,7 @@ const BucketList = () => {
                 style={{
                   textDecoration: "none",
                   color: `${
-                    list.completed === true ? "white" : "rgba(0,0,0,0.8)"
+                    list.completed === true ? "white" : "rgba(0,0,0,1)"
                   }`,
                 }}
               >

@@ -12,8 +12,24 @@ const ProgressBar = styled.div`
 const HightLight = styled.div`
   width: ${(props) => props.width};
   height: 100%;
-  background-color: #ff6e6e;
+  background-color: #96b0e6;
   transition: 1s width;
+
+  position: relative;
+`;
+
+const Circle = styled.div`
+  width: 43px;
+  height: 43px;
+  background-color: white;
+  border: 7px solid #515dc4;
+  border-radius: 50px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+
+  position: absolute;
+  top: 50%;
+  margin-top: -28.5px;
+  right: -20px;
 `;
 
 export default function Progress() {
@@ -24,7 +40,9 @@ export default function Progress() {
 
   return (
     <ProgressBar>
-      <HightLight width={(count / bucketList.length) * 100 + "%"} />
+      <HightLight width={(count / bucketList.length) * 100 + "%"}>
+        <Circle />
+      </HightLight>
     </ProgressBar>
   );
 }

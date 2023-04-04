@@ -82,6 +82,10 @@ const BucketInput = styled.input`
   color: #52515d;
 
   outline: none;
+
+  &:focus {
+    border: 1px solid #2330a0;
+  }
 `;
 
 const AddButton = styled.button`
