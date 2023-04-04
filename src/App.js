@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Router from "./share/Router";
 import { useDispatch } from "react-redux";
 import { createWidget } from "./redux/modules/widgets";
+import Progress from "./Progress";
 
 const Wrap = styled.div`
   width: 100%;
@@ -23,7 +24,6 @@ const MyStyled = styled.div`
   height: 600px;
   padding: 2rem;
   box-sizing: border-box;
-  overflow: scroll;
   border: 1px solid #dfdfdf;
   margin: 0 auto;
   // background-color: #fff;
@@ -45,16 +45,7 @@ const MyStyled = styled.div`
     background-color: #f4f4f4;
   } */
 
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.4);
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 6px;
-  }
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -102,6 +93,43 @@ const AddButton = styled.button`
 
   color: white;
   font-weight: 300;
+`;
+
+const GoTopButton = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: #515dc4;
+  border: none;
+  border-radius: 50px;
+
+  outline: none;
+
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  color: white;
+`;
+
+const BucketListWrap = styled.div`
+  width: 100%;
+  height: 320px;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(81, 93, 196, 0.4);
+    border-radius: 6px;
+  }
 `;
 
 // // 클래스형 컴포넌트는 이렇게 생겼습니다!
@@ -180,18 +208,42 @@ export default function App() {
   const dispatch = useDispatch();
 
   const addBucket = () => {
-    dispatch(createWidget(text.current.value));
+    const newList = {
+      text: text.current.value,
+      completed: false,
+    };
+
+    dispatch(createWidget(newList));
     text.current.value = "";
   };
 
   return (
     <Wrap>
       <MyStyled bg_color={true}>
-        <p>I can do it !!!</p>
+        {/* <p>I can do it !!!</p> */}
         <Title>내 버킷리스트</Title>
         {/* 컴포넌트를 넣어줍니다. */}
         {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
-        <Router />
+        <Progress />
+
+        <BucketListWrap>
+          <Router />
+        </BucketListWrap>
+
+        <GoTopButton
+          onClick={() => {
+            {
+              /*window.scrollTo(0, 0)*/
+            }
+            {
+              /* 좀 더 부드럽게 움직일 수 있게 하기 위하여 파라미터 사용 */
+            }
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          }}
+        >
+          TOP
+        </GoTopButton>
+        {/* 나는 scroll을 만들어놔서 필요없긴 함. */}
       </MyStyled>
 
       <InputWrap>

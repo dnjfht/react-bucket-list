@@ -3,6 +3,7 @@ const LOAD = "bucket/LOAD";
 const CREATE = "bucket/CREATE";
 const UPDATE = "bucket/UPDATE";
 const REMOVE = "bucket/REMOVE";
+const COMPLETED = "bucket/COMPLETED";
 
 // action creator
 export const loadWidgets = (payload) => {
@@ -33,9 +34,20 @@ export const removeWidget = (payload) => {
   };
 };
 
+export const completedWidget = (payload) => {
+  return {
+    type: COMPLETED,
+    payload: payload,
+  };
+};
+
 // initialState
 const initialState = {
-  list: ["영화관 가기", "매일 책읽기", "수영 배우기"],
+  list: [
+    { text: "영화관 가기", completed: false },
+    { text: "매일 책읽기", completed: false },
+    { text: "수영 배우기", completed: false },
+  ],
 };
 
 // reducer
@@ -50,6 +62,16 @@ const widgets = (state = initialState, action) => {
     case REMOVE: {
       const new_bucket_list = state.list.filter((_, idx) => {
         return action.payload !== idx;
+      });
+      return { list: new_bucket_list };
+    }
+    case COMPLETED: {
+      const new_bucket_list = state.list.map((bucket, index) => {
+        if (parseInt(action.payload) === index) {
+          return { ...bucket, completed: true };
+        } else {
+          return bucket;
+        }
       });
       return { list: new_bucket_list };
     }

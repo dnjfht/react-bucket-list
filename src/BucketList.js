@@ -9,8 +9,8 @@ const List = styled.div`
   padding: 0.8rem 1rem;
   box-sizing: border-box;
   margin-bottom: 1rem;
-  background-color: #e0ebff;
-
+  background-color: ${(props) =>
+    props.completed === true ? "#ff6e6e" : "#e0ebff"};
   text-align: left;
 
   display: flex;
@@ -62,14 +62,19 @@ const BucketList = () => {
           // 콘솔을 확인해봅시다 :)
           console.log(list);
           return (
-            <List key={index}>
+            <List completed={list.completed} key={index}>
               <p
                 onClick={() => {
                   navigate("/detail/" + index);
                 }}
-                style={{ textDecoration: "none", color: "rgba(0,0,0,0.8)" }}
+                style={{
+                  textDecoration: "none",
+                  color: `${
+                    list.completed === true ? "white" : "rgba(0,0,0,0.8)"
+                  }`,
+                }}
               >
-                {list}
+                {list.text}
               </p>
             </List>
           );

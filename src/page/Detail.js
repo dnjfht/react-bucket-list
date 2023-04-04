@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { removeWidget } from "../redux/modules/widgets";
+import { useDispatch, useSelector } from "react-redux";
+import { completedWidget, removeWidget } from "../redux/modules/widgets";
 
 const DetailWrap = styled.div`
   width: 100%;
@@ -18,6 +18,8 @@ const SubTitle = styled.h2`
   color: rgba(0, 0, 0, 0.8);
   font-size: 1.4rem;
 `;
+
+const SuccessButton = styled.button``;
 
 const DeleteBucket = styled.button`
   padding: 10px 20px;
@@ -37,7 +39,28 @@ const DeleteBucket = styled.button`
   }
 `;
 
+const PrevBucket = styled.button`
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid rgb(81, 93, 196);
+  border-radius: 50px;
+
+  color: #3e3885;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #3e3885;
+
+    color: white;
+  }
+`;
+
 export default function Detail() {
+  const bucketList = useSelector((state) => state.widgets.list);
+  console.log(bucketList);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -53,11 +76,25 @@ export default function Detail() {
     navigate(-1);
   };
 
+  const onClickCompleted = () => {
+    dispatch(completedWidget(bucket_index));
+    console.log(bucketList);
+  };
+
   return (
     <DetailWrap>
       <SubTitle>{`${bucket_index}번째 상세페이지`}</SubTitle>
+      <h1>{bucketList[bucket_index].text}</h1>
 
+      <SuccessButton onClick={onClickCompleted}>완료하기</SuccessButton>
       <DeleteBucket onClick={deleteBucket}>Delete</DeleteBucket>
+      <PrevBucket
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        Prev
+      </PrevBucket>
     </DetailWrap>
   );
 }
