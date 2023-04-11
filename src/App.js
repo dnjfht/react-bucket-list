@@ -123,6 +123,7 @@ const BucketListWrap = styled.div`
   width: 100%;
   height: 320px;
   overflow: scroll;
+  // scroll이 아니라 max-height를 줘서 scroll을 만들 수도 있음
 
   &::-webkit-scrollbar {
     width: 8px;
