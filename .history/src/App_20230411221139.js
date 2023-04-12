@@ -10,13 +10,7 @@ import Progress from "./Progress";
 
 // firebase
 import { db } from "./firebase";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 const Wrap = styled.div`
   width: 100%;
@@ -235,9 +229,8 @@ export default function App() {
   useEffect(() => {
     async function fetchData() {
       const bucket = await getDocs(collection(db, "bucket"));
-      console.log(bucket);
       bucket.forEach((doc) => {
-        console.log(doc.id, doc.data());
+        console.log(`${doc.id} => ${doc.data()}`);
       });
     }
     fetchData();
@@ -246,25 +239,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData2() {
       const docRef = await addDoc(collection(db, "bucket"), {
         completed: false,
-        text: "new",
+        text: "kugkgkg",
       });
     }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const updateRef = doc(db, "bucket", "bucket_item");
-      await updateDoc(updateRef, {
-        completed: true,
-      });
-    }
-    fetchData();
+    fetchData2();
 
     return () => {};
   }, []);

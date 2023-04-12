@@ -264,9 +264,6 @@ export default function App() {
         completed: true,
       });
     }
-    fetchData();
-
-    return () => {};
   }, []);
 
   return (

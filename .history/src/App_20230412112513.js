@@ -257,18 +257,6 @@ export default function App() {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      const updateRef = doc(db, "bucket", "bucket_item");
-      await updateDoc(updateRef, {
-        completed: true,
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
   return (
     <Wrap>
       <MyStyled bg_color={true}>

@@ -10,13 +10,7 @@ import Progress from "./Progress";
 
 // firebase
 import { db } from "./firebase";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 const Wrap = styled.div`
   width: 100%;
@@ -234,34 +228,10 @@ export default function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const bucket = await getDocs(collection(db, "bucket"));
+      const bucket = getDocs(collection(db, "bucket"));
       console.log(bucket);
       bucket.forEach((doc) => {
-        console.log(doc.id, doc.data());
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const docRef = await addDoc(collection(db, "bucket"), {
-        completed: false,
-        text: "new",
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const updateRef = doc(db, "bucket", "bucket_item");
-      await updateDoc(updateRef, {
-        completed: true,
+        console.log(`${doc.id} => ${doc.data()}`);
       });
     }
     fetchData();

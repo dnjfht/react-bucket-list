@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 // BucketList 컴포넌트를 import 해옵니다.
 // import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
 // import "./style.css";
@@ -8,15 +8,7 @@ import { useDispatch } from "react-redux";
 import { createWidget } from "./redux/modules/widgets";
 import Progress from "./Progress";
 
-// firebase
 import { db } from "./firebase";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
 
 const Wrap = styled.div`
   width: 100%;
@@ -222,6 +214,10 @@ export default function App() {
 
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    console.log(db);
+  }, []);
+
   const addBucket = () => {
     const newList = {
       text: text.current.value,
@@ -231,43 +227,6 @@ export default function App() {
     dispatch(createWidget(newList));
     text.current.value = "";
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      const bucket = await getDocs(collection(db, "bucket"));
-      console.log(bucket);
-      bucket.forEach((doc) => {
-        console.log(doc.id, doc.data());
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const docRef = await addDoc(collection(db, "bucket"), {
-        completed: false,
-        text: "new",
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const updateRef = doc(db, "bucket", "bucket_item");
-      await updateDoc(updateRef, {
-        completed: true,
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
 
   return (
     <Wrap>
