@@ -16,7 +16,6 @@ import {
   addDoc,
   doc,
   updateDoc,
-  deleteDoc,
 } from "firebase/firestore";
 
 const Wrap = styled.div`
@@ -272,7 +271,7 @@ export default function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const deleteRef = doc(db, "bucket", "DQQV7wi0YDcoIyg5neDQ");
+      const deleteRef = doc(db, "bucket", "bucket_item");
       await deleteDoc(deleteRef);
     }
     fetchData();
