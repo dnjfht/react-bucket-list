@@ -107,6 +107,30 @@ export const updateBucketFB = (payload) => {
   };
 };
 
+export const deleteBucketFB = (payload) => {
+  return async function (dispatch, getState) {
+    if (!payload) {
+      window.alert("ID가 없어요!");
+      return;
+    }
+    const deleteRef = doc(db, "bucket", payload);
+    await deleteDoc(deleteRef);
+
+    // completedWidget에서 bucket_index를 필요로 했으므로 여기서도 bucket_index를 구해야 함.
+    // bucketList 싹 다 가져와야 함. => 두 번째 인자로 넣을 수 있는 getState 이용.
+
+    console.log(getState().widgets);
+    const _bucket_list = getState().widgets.list;
+    const bucket_index = _bucket_list.findIndex((b) => {
+      return b.id === payload;
+    });
+
+    console.log(bucket_index);
+
+    dispatch(removeWidget(bucket_index));
+  };
+};
+
 // initialState
 const initialState = {
   list: [

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   completedWidget,
+  deleteBucketFB,
   removeWidget,
   updateBucketFB,
 } from "../redux/modules/widgets";
@@ -75,7 +76,8 @@ export default function Detail() {
   // 페이지에 해당하는 id가 숫자로 들어옴
 
   const deleteBucket = () => {
-    dispatch(removeWidget(bucket_index));
+    // dispatch(removeWidget(bucket_index));
+    dispatch(deleteBucketFB(bucketList[bucket_index].id));
 
     navigate(-1);
   };
