@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { completedWidget, removeWidget } from "../redux/modules/widgets";
+import {
+  completedWidget,
+  removeWidget,
+  updateBucketFB,
+} from "../redux/modules/widgets";
 
 const DetailWrap = styled.div`
   width: 100%;
@@ -77,14 +81,15 @@ export default function Detail() {
   };
 
   const onClickCompleted = () => {
-    dispatch(completedWidget(bucket_index));
+    // dispatch(completedWidget(bucket_index));
+    dispatch(updateBucketFB(bucketList[bucket_index].id));
     console.log(bucketList);
   };
 
   return (
     <DetailWrap>
       <SubTitle>{`${bucket_index}번째 상세페이지`}</SubTitle>
-      <h1>{bucketList[bucket_index].text}</h1>
+      <h1>{bucketList[bucket_index] ? bucketList[bucket_index].text : ""}</h1>
 
       <SuccessButton onClick={onClickCompleted}>완료하기</SuccessButton>
       <DeleteBucket onClick={deleteBucket}>Delete</DeleteBucket>

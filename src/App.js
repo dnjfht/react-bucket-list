@@ -5,7 +5,11 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Router from "./share/Router";
 import { useDispatch } from "react-redux";
-import { createWidget } from "./redux/modules/widgets";
+import {
+  addBucketFB,
+  createWidget,
+  loadBucketFB,
+} from "./redux/modules/widgets";
 import Progress from "./Progress";
 
 // firebase
@@ -229,55 +233,60 @@ export default function App() {
       completed: false,
     };
 
-    dispatch(createWidget(newList));
+    // dispatch(createWidget(newList));
+    dispatch(addBucketFB(newList));
     text.current.value = "";
   };
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const bucket = await getDocs(collection(db, "bucket"));
+  //     console.log(bucket);
+  //     bucket.forEach((doc) => {
+  //       console.log(doc.id, doc.data());
+  //     });
+  //   }
+  //   fetchData();
+
+  //   return () => {};
+  // }, []);
+
+  // useEffect(() => {
+  //   async function fetchData2() {
+  //     const docRef = await addDoc(collection(db, "bucket"), {
+  //       completed: false,
+  //       text: "new",
+  //     });
+  //   }
+  //   fetchData2();
+
+  //   return () => {};
+  // }, []);
+
+  // useEffect(() => {
+  //   async function fetchData3() {
+  //     const updateRef = doc(db, "bucket", "bucket_item");
+  //     await updateDoc(updateRef, {
+  //       completed: true,
+  //     });
+  //   }
+  //   fetchData3();
+
+  //   return () => {};
+  // }, []);
+
+  // useEffect(() => {
+  //   async function fetchData4() {
+  //     const deleteRef = doc(db, "bucket", "DQQV7wi0YDcoIyg5neDQ");
+  //     await deleteDoc(deleteRef);
+  //   }
+  //   fetchData4();
+
+  //   return () => {};
+  // }, []);
+
   useEffect(() => {
-    async function fetchData() {
-      const bucket = await getDocs(collection(db, "bucket"));
-      console.log(bucket);
-      bucket.forEach((doc) => {
-        console.log(doc.id, doc.data());
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const docRef = await addDoc(collection(db, "bucket"), {
-        completed: false,
-        text: "new",
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const updateRef = doc(db, "bucket", "bucket_item");
-      await updateDoc(updateRef, {
-        completed: true,
-      });
-    }
-    fetchData();
-
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const deleteRef = doc(db, "bucket", "DQQV7wi0YDcoIyg5neDQ");
-      await deleteDoc(deleteRef);
-    }
-    fetchData();
-
-    return () => {};
+    dispatch(loadBucketFB());
   }, []);
 
   return (
