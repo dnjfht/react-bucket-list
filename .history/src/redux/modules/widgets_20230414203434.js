@@ -133,7 +133,6 @@ export const deleteBucketFB = (payload) => {
 
 // initialState
 const initialState = {
-  is_loaded: false,
   list: [
     { text: "영화관 가기", completed: false },
     { text: "매일 책읽기", completed: false },
@@ -146,7 +145,7 @@ const widgets = (state = initialState, action) => {
   switch (action.type) {
     // 파이어스토어에서 넘어온 데이터를 그대로 넣어주는 역할.
     case LOAD: {
-      return { list: action.payload, is_loaded: true };
+      return { list: action.payload };
     }
     case CREATE: {
       const new_bucket_list = [...state.list, action.payload];
