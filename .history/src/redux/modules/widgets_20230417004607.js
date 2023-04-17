@@ -159,7 +159,7 @@ const widgets = (state = initialState, action) => {
     }
     case CREATE: {
       const new_bucket_list = [...state.list, action.payload];
-      return { list: new_bucket_list, is_loaded: true };
+      return { list: new_bucket_list };
     }
     case REMOVE: {
       const new_bucket_list = state.list.filter((_, idx) => {

@@ -17,7 +17,6 @@ const CREATE = "bucket/CREATE";
 const UPDATE = "bucket/UPDATE";
 const REMOVE = "bucket/REMOVE";
 const COMPLETED = "bucket/COMPLETED";
-const LOADED = "bucket/LOADED";
 
 // action creator
 export const loadWidgets = (payload) => {
@@ -55,13 +54,6 @@ export const completedWidget = (payload) => {
   };
 };
 
-export const isLoaded = (payload) => {
-  return {
-    type: LOADED,
-    payload: payload,
-  };
-};
-
 // middlewares
 export const loadBucketFB = () => {
   return async function (dispatch) {
@@ -84,7 +76,6 @@ export const loadBucketFB = () => {
 export const addBucketFB = (payload) => {
   return async function (dispatch) {
     const docRef = await addDoc(collection(db, "bucket"), payload);
-    dispatch(isLoaded(false));
     const _bucket = await getDoc(docRef);
     const bucket = { id: _bucket.id, ..._bucket.data() };
     dispatch(createWidget(bucket));
@@ -142,6 +133,7 @@ export const deleteBucketFB = (payload) => {
 
 // initialState
 const initialState = {
+  is_added: false,
   is_loaded: false,
   list: [
     { text: "영화관 가기", completed: false },
@@ -159,7 +151,7 @@ const widgets = (state = initialState, action) => {
     }
     case CREATE: {
       const new_bucket_list = [...state.list, action.payload];
-      return { list: new_bucket_list, is_loaded: true };
+      return { list: new_bucket_list, is_added: true };
     }
     case REMOVE: {
       const new_bucket_list = state.list.filter((_, idx) => {
@@ -176,9 +168,6 @@ const widgets = (state = initialState, action) => {
         }
       });
       return { list: new_bucket_list };
-    }
-    case LOADED: {
-      return { ...state, is_loaded: action.payload };
     }
     default:
       return state;
